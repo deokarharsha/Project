@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="Main">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Payslip Form</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <style media="screen">
+      .form-group{
+              margin-top:10px;
+      }
+      .show-print{
+        display:none !important;
+      }
+      .table-responsive{
+        
+        width:800px;
+        height:350px;
+        margin-left: 100px;
+        margin-right: 100px;
+      }
+      /* div {
+        max-width: 40em;
+        max-height: 20em;
+        overflow: scroll;
+        position: relative;
+      }
+
+      table {
+        position: relative;
+        border-collapse: collapse;
+      }
+
+      td, th {
+        padding: 0.25em;
+      }
+
+      thead th {
+        position: sticky;
+        top: 0;
+        background: #000;
+        color: #FFF;
+      }
+
+      thead th:first-child {
+        left: 0;
+        z-index: 1;
+      }
+
+      tbody th {
+        position: sticky;
+        left: 0;
+        background: #FFF;
+        border-right: 1px solid #CCC;
+      } */
+      /* .sub {
+          margin-left: 50px;
+          max-width: 65em;
+          max-height: 30em;
+          overflow: scroll;
+          position: relative;
+        }
+      .sub1 {
+        position: relative;
+        border-collapse: collapse;
+      }
+      td, th {
+        padding: 0.25em;
+      }
+
+      thead th {
+        position: sticky;
+        top: 0;
+        overflow: hidden; */
+        /* background: #000;
+        color: #FFF; */
+      /* }
+
+      thead th:first-child {
+        left: 0;
+        z-index: 1;
+      }
+
+      tbody th {
+        position: sticky;
+        left: 0;
+        background: #FFF;
+        border-right: 1px solid #CCC;
+      }
+      tbody td:nth-child(1) {
+        position: sticky;
+        left: 0;
+        overflow: hidden; */
+        /* background: #000;
+        color: #FFF; */
+      /* }
+      tbody td:nth-child(2) {
+        position: sticky;
+        left: 1;
+        overflow: hidden; */
+        /* background: #000;
+        color: #FFF; */
+      /* }
+      .fixed-side{
+        position: sticky;
+        right: 0;
+        overflow:auto; */
+        /* background: #000;
+        color: #FFF; */
+      /* } */
+      .sub {
+      overflow:auto;
+      width:90%;
+      height:400px;
+      background:white; 
+      margin-left: 50px;
+      box-shadow: -13px 0px 15px 6px rgba(239, 239, 239, 0.76) inset;
+    }
+    .sub table {
+      table-layout: fixed; 
+      width:90%;
+      border-collapse: collapse;
+      border-spacing: 0;
+    }
+    .sub thead th {
+      box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.05);
+      position:sticky;
+      top:0;
+      background:white;
+    }
+    .sub td, .sub th {
+      /* border: 1px solid #000; */
+      border: none;
+      width: max-content;
+      padding: .5em 1em;
+      text-align:center;
+
+    }
+    .sub tbody tr td:first-child {
+      /* need to do the ellipsis overflow manually to keep the column box-shadow hack */
+      background:white;
+    }
+    .sub tr td:first-child:after, .sub tr th:first-child::after {
+      /* box-shadow: 15px 0 15px -15px rgba(0, 0, 0, 0.05) inset; */
+      content: "";
+      position:absolute;
+      top:0;
+      bottom:0;
+      right:-15px;       
+      width:15px;
+    }
+    .sub td:first-child, .sub th:first-child {
+      position:sticky;
+      left:0;
+      z-index:1;
+    }
+    .sub td:last-child {
+      position:sticky;
+      right:0;
+    }
+
+      @media print{
+          @page {
+            size: A5 landscape ;
+            margin: 0;
+          }
+          .hidden-print {
+            display:none !important;
+          }
+          .show-print{
+            display:block !important;
+            
+          }
+          .printdata{
+              -webkit-text-size-adjust: 100%;
+              page-break-after: always !important;
+              text-transform: uppercase;
+          }
+      }
+    </style>
+  </head>
+  <body ng-controller="mainCtrl">
+     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.min.js"></script>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+   <!-- Popper JS -->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+
+   <!-- Latest compiled JavaScript -->
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+   <script src="main.js"></script>
+   <div class="container hidden-print">
+     <form name="form1">
+      <div class="form-group row">
+        <label for="comName" class="col-sm-3 col-form-label">Enter Company Name :</label>
+        <div class="col-sm-4">
+          <input type="text" class="form-control" id="comName" ng-model="company" ng-required="true" uppercased>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="deptName" class="col-sm-3 col-form-label">Enter Department :</label>
+        <div class="col-sm-4">
+          <input type="text" class="form-control" id="deptName" ng-model="dept" required uppercased>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="desgName" class="col-sm-3 col-form-label">Enter Designation :</label>
+        <div class="col-sm-4">
+          <input type="text" class="form-control" id="desgName" ng-model="desg" required uppercased>
+        </div>
+        <div class="col-sm-5">
+            <input type="submit" class="col-sm-4 btn btn-md btn-default-green" value="Browse" ng-click="form1.$valid && browse() || ShowHide()">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="comAdd" class="col-sm-3 col-form-label">Enter Company Address :</label>
+        <div class="col-sm-4">
+          <textarea name="name" id="comAdd" rows="5" cols="37" ng-model="address" required uppercased></textarea><br>
+        </div>
+        <div class="col-sm-5">
+            <input type="file" id="uploadFile" accept="application/csv" on-read-file="uploadGSTDataFile($fileContent)" style="display:none;">
+          <button type="submit" class="col-sm-4 btn btn-md btn-default-green" name="Print" ng-show = "IsVisible" ng-click="form1.$valid && print()">Print</button>
+        </div>
+      </div>
+    </form>
+</div>
+
+<div class="sub hidden-print" ng-show="header.length">
+  <table>
+    <thead>
+        <th style="width:10em; z-index:3;" ng-repeat="head in header track by $index">{{ head }}</th>
+        <th><input type="checkbox" ng-model="selectAll" ng-click="checkAll()"/></th>
+    </thead>
+    <tbody>
+    <tr ng-repeat="x in data">
+      <td ng-repeat="head in header track by $index">{{ x[head] }}</td>
+      <td class="fixed-side"><input type="checkbox" ng-model="selected[$index]"/></td>
+    </tr>
+    </tbody>
+   </table>
+</div>
+
+   <div ng-repeat="p in printdata track by $index" class="printdata">
+       <div class="show-print">
+        <div style="font-size: 18px;text-transform: uppercase;">
+            <center><b>{{ company }}</b></center>
+          </div>
+          <div style="font-size: 16px;text-transform: uppercase;">
+            <center><b>{{ address }}</b></center>
+          </div>
+          <form style="border:1px solid;height:670px">
+         <table>
+            <colgroup span = "4">
+              <col width = "20" height = "120"></col>
+              <col width = "600" height = "120"></col>
+              <col width = "200" height = "20"></col>
+              <col width = "200" height = "20"></col>
+              <col width = "100" height = "20"></col>
+           </colgroup>
+           <tr>
+             <td></td>
+             <td  style="height: 10px;"></td>
+             <td  style="height: 10px;"></td>
+             <td  style="height: 10px;"></td>
+           </tr>
+           <tr>
+             <td></td>
+             <td style="height: 15px;">NAME OF EMPLOYEE : {{ p['Name of Employee'] }} </td>
+             <td style="height: 15px;">YEAR :</td>
+             <td style="height: 15px;">{{dateVariable | date:'yyyy'}}</td>
+           </tr>
+           <tr>
+             <td></td>
+              <td style="height: 10px;">DEPARTMENT : {{ dept }}</td>
+              <td style="height: 10px;">MONTH :</td>
+              <td style="height: 10px;"> {{dateVariable | date:'MMMM' | uppercase}}</td>
+           </tr>
+           <tr>
+             <td></td>
+              <td style="height: 10px;">DESIGNATION : {{ desg }}</td>
+           </tr>
+           <tr>
+             <td></td>
+              <td style="height: 10px;">P: {{ p['Present Days'] || 0}} A : L : H :</td>
+           </tr>
+           <tr style="border:1px solid;height:40px;">
+            <td></td>
+             <td style="font-size: 16px;text-align:right;"><b>SALARY SLIP</b></td>
+             <td></td>
+             <td></td>
+           </tr>
+           <tr>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td><b><u>AMOUNT</u></b></td>
+           </tr>
+           <tr>
+             <td></td>
+              <td>BASIC</td>
+              <td></td>
+              <td >{{ p.Basic_Earned || 0 }}</td>
+           </tr>
+           <tr>
+             <td></td>
+              <td>DA</td>
+              <td></td>
+              <td >{{ p.DA || 0 }}</td>
+           </tr>
+           <tr>
+             <td></td>
+              <td>TA</td>
+              <td></td>
+              <td >{{ p['Bus Conv_T'] || 0 }}</td>
+           </tr>
+           <tr>
+             <td></td>
+              <td>MEDICAL ALLOWANCE</td>
+              <td></td>
+              <td>{{ p['Medical Allowance'] || 0 }}</td>
+           </tr>
+           <tr>
+             <td></td>
+              <td>INCENTIVE</td>
+              <td></td>
+              <td >{{ p.Incentive || 0 }}</td>
+           </tr>
+           <tr style="border:1px solid;height:40px;">
+            <td></td>
+              <td><b>GROSS SALARY</b></td>
+              <td >A</td>
+              <td >{{ p['Gross Salary_Earned'] || 0 }}</td>
+           </tr>
+           <tr>
+             <td></td>
+              <td></td>
+              <td></td>
+              <td><b><u>DEDUCTION</u></b></td>
+           </tr>
+           <tr>
+             <td></td>
+              <td>PF</td>
+              <td></td>
+              <td >{{ p.PF || 0 }}</td>
+           </tr>
+           <tr>
+             <td></td>
+              <td>PT</td>
+              <td></td>
+              <td >{{ p['P.Tax'] || 0 }}</td>
+           </tr>
+           <tr>
+             <td></td>
+              <td>ESIC</td>
+              <td></td>
+              <td >{{ p.ESIC || 0 }}</td>
+           </tr>
+           <tr>
+             <td></td>
+              <td>ADVANCE</td>
+              <td></td>
+              <td >{{ p.Advance || 0 }}</td>
+           </tr>
+           <tr>
+             <td></td>
+             <td>TA</td>
+             <td></td>
+             <td>{{ p['Bus Deduction'] || 0 }}</td>
+           </tr>
+           <tr style="border:1px solid;height:40px;">
+            <td></td>
+             <td>TOTAL</td>
+             <td >B</td>
+             <td >{{ p.Deduction || 0 }}</td>
+           </tr>
+           <tr style="border:1px solid;height:40px;">
+            <td></td>
+             <td><b>NET SALARY</b></td>
+             <td>(A-B)</td>
+             <td>{{ p['Gross Salary_Earned'] - p.Deduction }}</td>
+           </tr>
+           <!-- {{ p['Net Salary'] }} -->
+           <tr>
+             <td></td>
+             <td><b><i>AMOUNT IN WORDS</i></b></td>
+             <td><b><i>{{ p['Gross Salary_Earned'] - p.Deduction | convertToWord }}</i></b></td>
+           </tr>
+           <tr style="height:60px;">
+           <tr style="height:60px;">
+             <td></td>
+             <td></td>
+             <td></td>
+             <td>AUTHORISED SIGNATORY</td>
+           </tr>
+         </table>
+        </form>
+        <div class="footer">
+          <b>P-Present, A-Absent, L-Leave, H-Holidays (including public holidays)</b>
+        </div>
+  </body> 
+</html>
